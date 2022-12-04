@@ -27,19 +27,33 @@ public class PasswordCracker {
 
  public static String cracker(String hash) throws NoSuchAlgorithmException {
   String password = "";
-  char[] digits = {'a','a','a','a','a'}; //initial combination
+  char[] digits = {'a','a','a','a','a'};
 
-  for(int i = 0; i < 5; i++) {
-    for(int j = 0; j < 51; j++) {
-      password = String.valueOf(digits);
-      String testHash = hashMd5(password);
-      if (hash.equals(testHash)) {
-        return password.toString();
+  for(int i = 0; i < ALPHABET.length; i++) {
+    for(int j = 0; j < ALPHABET.length; j++) {
+      for(int k = 0; k < ALPHABET.length; k++) {
+        for(int l = 0; l < ALPHABET.length; l++) {
+          for(int m = 0; m < ALPHABET.length; m++) {
+            digits[0] = ALPHABET[i];
+            digits[1] = ALPHABET[j];
+            digits[2] = ALPHABET[k];
+            digits[3] = ALPHABET[l];
+            digits[4] = ALPHABET[m];
+
+            password = String.valueOf(digits);
+            System.out.println(password);
+            String testHash = hashMd5(password);
+            if (hash.equals(testHash)) {
+              return password.toString();
+            }
+          }
+        }
       }
     }
   }
+
   return null; //does nothing but code won't run without it (until complete)
- }
+}
  
 
  public static void main(String args[]) throws NoSuchAlgorithmException
