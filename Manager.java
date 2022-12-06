@@ -75,7 +75,7 @@ public class Manager {
             String[] workRange = new String[num_workers];
             int accum = 0;
             for (int i=0; i < num_workers; i++) {
-                String start = "" + accum + 1;
+                String start = "" + (accum + 1);
                 accum += workload[i];
                 String end = "" + accum;
                 workRange[i] = start + "," + end;
