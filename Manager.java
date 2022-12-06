@@ -18,6 +18,7 @@ public class Manager {
         private String workRange;
         private PrintWriter outToClient;
         private BufferedReader inFromClient;
+        private String answer;
 
         public WorkerHandler(Socket socket, String workRange) {
             this.clientSocket = socket;
@@ -31,14 +32,18 @@ public class Manager {
             //manager sends each worker "x,y", where x and y are integers between 1 and 52^5
             //a worker needs to take care of x'th to y'th passwords between "aaaaa" and "ZZZZZ"
             outToClient.println(workRange);
-            String str = inFromClient.readLine();
-            System.out.println("RECEIVED: " + str);
+            answer = inFromClient.readLine();
+            System.out.println("RECEIVED: " + answer);
 
             //Closing connection
             inFromClient.close();
             outToClient.close();
             clientSocket.close();
             System.out.println("A client left");
+        }
+
+        public String getAnswer() {
+            return answer;
         }
     }
 
@@ -81,10 +86,24 @@ public class Manager {
                 workRange[i] = start + "," + end;
             }
 
+            //accepting workers
             WorkerHandler[] workerThreads = new WorkerHandler[num_workers];
             for (int i=0; i < num_workers; i++) {
-                workerThreads[i] = new WorkerHandler(serverSocket.accept(), workRange[i]).start();
+                Socket clientSocket = serverSocket.accept();
+                workerThreads[i] = new WorkerHandler(clientSocket, workRange[i]).start();
                 System.out.println("A client joined");
+            }
+
+            //looking for the cracked password in the workers' responses
+            for (int i=0; i < num_workers; i++) {
+                String answer = workerThreads[i].getAnswer();
+                while (answer == null) {
+                    answer = workerThreads[i].getAnswer();
+                }
+                if (answer.length == 5) {
+                    System.out.println("The password is: " + answer);
+                    break;
+                }
             }
         }
         //serverSocket.close();
