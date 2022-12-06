@@ -13,6 +13,35 @@ import java.net.*;
 
 public class Manager {
 
+    private static class WorkerHandler extends Thread {
+        private Socket clientSocket;
+        private String workRange;
+        private PrintWriter outToClient;
+        private BufferedReader inFromClient;
+
+        public WorkerHandler(Socket socket, String workRange) {
+            this.clientSocket = socket;
+            this.workRange = workRange;
+        }
+
+        public void run() {
+            outToClient = new PrintWriter(clientSocket.getOutputStream(), true);
+            inFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            
+            //manager sends each worker "x,y", where x and y are integers between 1 and 52^5
+            //a worker needs to take care of x'th to y'th passwords between "aaaaa" and "ZZZZZ"
+            outToClient.println(workRange);
+            String str = inFromClient.readLine();
+            System.out.println("RECEIVED: " + str);
+
+            //Closing connection
+            inFromClient.close();
+            outToClient.close();
+            clientSocket.close();
+            System.out.println("A client left");
+        }
+    }
+
     public static void main(String[] args) throws IOException {
         
         //Reading command line arguments
@@ -26,15 +55,10 @@ public class Manager {
         ServerSocket serverSocket = new ServerSocket(port);
 
         while (true) {
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("A client joined");
-
-            BufferedReader inFromClient = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-            PrintWriter outToClient = new PrintWriter(clientSocket.getOutputStream(), true);
-            
             //preparing to assign jobs
             int total_password_num = (int)Math.pow(52, 5);
-            int[] workload = new int[num_workers]; //workload[i] stores the number of passwords worker i needs to try
+            int[] workload = new int[num_workers]; 
+            //workload[i] stores the number of passwords worker i needs to try
             int avg_workload = total_password_num/num_workers;
             int remainder = total_password_num%num_workers;
             for (int i=0; i<num_workers; i++) {
@@ -44,17 +68,24 @@ public class Manager {
                 workload[i]++;
             }
 
-            //manager sends each worker "x,y", where x and y are integers between 1 and 52^5
-            //a worker needs to take care of x'th to y'th passwords between "aaaaa" and "ZZZZZ"
-            outToClient.println("1," + total_password_num);
-            String str = inFromClient.readLine();
-            System.out.println("RECEIVED: " + str);
+            //a worker's work range is represented with "x,y", 
+            //where x and y are integers between 1 and 52^5
+            //If workRange[i] is "x,y", 
+            //then worker i needs to take care of x'th to y'th passwords between "aaaaa" and "ZZZZZ"
+            String[] workRange = new String[num_workers];
+            int accum = 0;
+            for (int i=0; i < num_workers; i++) {
+                String start = "" + accum + 1;
+                accum += workload[i];
+                String end = "" + accum;
+                workRange[i] = start + "," + end;
+            }
 
-            //Closing connection
-            outToClient.close();
-            inFromClient.close();
-            clientSocket.close();
-            System.out.println("A client left");
+            WorkerHandler[] workerThreads = new WorkerHandler[num_workers];
+            for (int i=0; i < num_workers; i++) {
+                workerThreads[i] = new WorkerHandler(serverSocket.accept(), workRange[i]).start();
+                System.out.println("A client joined");
+            }
         }
         //serverSocket.close();
     }
