@@ -90,7 +90,8 @@ public class Manager {
             WorkerHandler[] workerThreads = new WorkerHandler[num_workers];
             for (int i=0; i < num_workers; i++) {
                 Socket clientSocket = serverSocket.accept();
-                workerThreads[i] = new WorkerHandler(clientSocket, workRange[i]).start();
+                workerThreads[i] = new WorkerHandler(clientSocket, workRange[i]);
+                workerThreads[i].start();
                 System.out.println("A client joined");
             }
 
