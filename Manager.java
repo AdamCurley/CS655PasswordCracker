@@ -16,13 +16,15 @@ public class Manager {
     private static class WorkerHandler extends Thread {
         private Socket clientSocket;
         private String workRange;
+        private String password_hash;
         private PrintWriter outToClient;
         private BufferedReader inFromClient;
         private String answer;
 
-        public WorkerHandler(Socket socket, String workRange) {
+        public WorkerHandler(Socket socket, String workRange, String password_hash) {
             this.clientSocket = socket;
             this.workRange = workRange;
+            this.password_hash = password_hash;
         }
 
         public void run() {
@@ -31,7 +33,7 @@ public class Manager {
             
             //manager sends each worker "x,y", where x and y are integers between 1 and 52^5
             //a worker needs to take care of x'th to y'th passwords between "aaaaa" and "ZZZZZ"
-            outToClient.println(workRange);
+            outToClient.println(password_hash + "," + workRange);
             answer = inFromClient.readLine();
             System.out.println("RECEIVED: " + answer);
 
@@ -50,11 +52,12 @@ public class Manager {
     public static void main(String[] args) throws IOException {
         
         //Reading command line arguments
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Port number or number of workers missing.");
+        if (args.length < 3) {
+            throw new IllegalArgumentException("Port number or number of workers or password hash missing.");
         }
         int port = Integer.parseInt(args[0]);
         int num_workers = Integer.parseInt(args[1]);
+        String password_hash = args[2];
         
         //Establishing connection
         ServerSocket serverSocket = new ServerSocket(port);
@@ -90,7 +93,7 @@ public class Manager {
             WorkerHandler[] workerThreads = new WorkerHandler[num_workers];
             for (int i=0; i < num_workers; i++) {
                 Socket clientSocket = serverSocket.accept();
-                workerThreads[i] = new WorkerHandler(clientSocket, workRange[i]);
+                workerThreads[i] = new WorkerHandler(clientSocket, workRange[i], password_hash);
                 workerThreads[i].start();
                 System.out.println("A client joined");
             }
