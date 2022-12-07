@@ -52,7 +52,7 @@ public class PasswordCracker {
     }
   }
 
-  return null; //does nothing but code won't run without it (until complete)
+  return null; //does nothing but code won't run without it
 }
  
 
@@ -62,6 +62,12 @@ public class PasswordCracker {
     String testHash = hashMd5(testPassword);
     System.out.println("The Password is: " + testPassword);
     System.out.println("User Submitted MD5 Hash is: " + testHash);
+    
+    long startTime = System.currentTimeMillis();
     System.out.println("The cracked password is: " + cracker(testHash));
+    long elapsedTime = System.currentTimeMillis() - startTime;
+    long elapsedSeconds = elapsedTime / 1000;
+    long elapsedMinutes = elapsedSeconds / 60;
+    System.out.println("Time elapsed: " + elapsedMinutes);
   }
 }
