@@ -33,8 +33,8 @@ public class Worker {
                 Stop stop = new Stop();
                 Thread t = new Thread(stop);
                 t.start();
-//            } else if (input.equals("q")) {
-//                stop();
+            } else if (input.equals("q")) {
+                stop();
             } else {
                 locker.lock();
                 isRunning = true;
