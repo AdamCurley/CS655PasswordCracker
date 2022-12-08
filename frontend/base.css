@@ -1,0 +1,81 @@
+#pw-form {
+    text-align: center;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 30px;
+}
+
+#title {
+    font-size: 50px;
+    margin-left: 30px;
+}
+
+
+#pw-input {
+    border-radius: 30px;
+    text-align: center;
+    line-height: 2;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: darkgray 1px solid;
+    outline: none;
+    font-size: 20px;
+}
+#pw-submit-button {
+    width: 70px;
+    height: 40px;
+    border: none;
+    background: rgb(53, 163, 68);
+    cursor: pointer;
+}
+
+.password-input-field {
+    border-radius: 30px;
+    text-align: center;
+    line-height: 2;
+    border: darkgray 1px solid;
+    outline: none;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.random-button {
+    height: 40px;
+    border-radius: 25px;
+    color:white;
+    outline: none;
+    border: none;
+    background: rgb(212, 182, 12);
+    font-size: 15px;
+    cursor: pointer;
+    width: 80px;
+    margin-left: 20px;
+}
+
+.submit-button {
+    height: 40px;
+    border-radius: 25px;
+    color:white;
+    outline: none;
+    border: none;
+    background: rgb(53, 163, 68);
+    font-size: 15px;
+    cursor: pointer;
+    width: 80px;
+    margin-left: 10px;
+}
+
+.remove-button {
+    height: 40px;
+    border-radius: 25px;
+    color:white;
+    outline: none;
+    border: none;
+    background: lightslategrey;
+    font-size: 15px;
+    cursor: pointer;
+    width: 80px;
+    margin-left: 10px;
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Password Cracker</title>
+	<link rel="stylesheet" href="./base.css">
+</head>
+
+<body>
+    <h1 id='title'>Password Cracker</h1>
+    <form action = "http://localhost:5000/" method = "post" id='pw-form'>
+        <label>Please enter the password: </label>
+        <input
+            type="text"
+            id="pw-input"
+            name="pw"
+            placeholder="5 characters only"
+            maxLength="5"
+            minlength="5"
+        />
+        <button id="pw-submit-button" type="submit">submit</button>
+    </form>
+
+</body>
+</html>
