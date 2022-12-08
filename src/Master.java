@@ -15,10 +15,11 @@ public class Master {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     }
 
-    public String sendMessage(String msg) throws IOException {
+    public void sendMessage(String msg) throws IOException {
         out.println(msg);
-        String resp = in.readLine();
-        return resp;
+    }
+    public String receiveMessage() throws IOException {
+        return in.readLine();
     }
 
     public void stopConnection() throws IOException {
