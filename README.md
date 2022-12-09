@@ -16,35 +16,35 @@ bash setup.sh
 
 4. Run the server on worker1:
 ```
-wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/worker/Worker.java
+wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/TestForAny/Worker.java
 javac *.java
 java Worker <port_number> 1 
 ```
 
 5. Run the server on worker2:
 ```
-wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/worker/Worker.java
+wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/TestForAny/Worker.java
 javac *.java
 java Worker <port_number> 2 
 ```
 
 6. Run the server on worker3:
 ```
-wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/worker/Worker.java
+wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/TestForAny/Worker.java
 javac *.java
 java Worker <port_number> 3 
 ```
 
 7. Run the server on worker4:
 ```
-wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/worker/Worker.java
+wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/TestForAny/Worker.java
 javac *.java
 java Worker <port_number> 4 
 ```
 
 8. Run the server on worker5:
 ```
-wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/worker/Worker.java
+wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/TestForAny/Worker.java
 javac *.java
 java Worker <port_number> 5 
 ```
