@@ -133,7 +133,7 @@ public class Worker {
                                 digits[4] = c;
 
                                 password = String.valueOf(digits);
-                                System.out.println("Worker" + start + " is cracking: " + password);
+                                //System.out.println("Worker" + start + " is cracking: " + password);
                                 if (hash.equals(hashMd5(password))) {
                                     return password;
                                 }
