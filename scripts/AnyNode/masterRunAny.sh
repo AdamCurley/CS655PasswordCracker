@@ -4,4 +4,4 @@ wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/
 wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/Md5.java
 wget https://raw.githubusercontent.com/AdamCurley/CS655PasswordCracker/main/src/TestForAny/TestForAny.java
 javac *.java
-java Test
+java TestForAny
