@@ -32,6 +32,7 @@ public class Test {
             System.out.println("Please enter the number of workers: (The range is in 1 - 5)");
             number = scanner.nextInt();
             input = Md5.hashMd5(input) + " " + number;
+            scanner.nextLine();
             System.out.println("Please enter the first worker ip: ");
             ip[0] = scanner.nextLine();
             System.out.println("You entered: " + ip[0]);
