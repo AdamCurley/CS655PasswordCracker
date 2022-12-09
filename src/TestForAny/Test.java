@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class TestForAny {
+public class Test {
     private static Scanner scanner = new Scanner(System.in);
     public static List<Master> list = new ArrayList<>();
     public static boolean canStart = false;
